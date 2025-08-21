@@ -2,6 +2,7 @@
  *  Copyright (c) Microsoft Corporation. All rights reserved.
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
+import { ConfigKey, IConfigurationService } from '../../../platform/configuration/common/configurationService';
 import { ILogService } from '../../../platform/log/common/logService';
 import { IFetcherService } from '../../../platform/networking/common/fetcherService';
 import { IInstantiationService } from '../../../util/vs/platform/instantiation/common/instantiation';
@@ -17,11 +18,13 @@ export class GroqBYOKLMProvider extends BaseOpenAICompatibleLMProvider {
 		@IFetcherService _fetcherService: IFetcherService,
 		@ILogService _logService: ILogService,
 		@IInstantiationService _instantiationService: IInstantiationService,
+		@IConfigurationService _configurationService: IConfigurationService,
 	) {
+		const groqEndpoint = _configurationService.getConfig(ConfigKey.GroqEndpoint);
 		super(
 			BYOKAuthType.GlobalApiKey,
 			GroqBYOKLMProvider.providerName,
-			'https://api.groq.com/openai/v1',
+			groqEndpoint,
 			knownModels,
 			byokStorageService,
 			_fetcherService,

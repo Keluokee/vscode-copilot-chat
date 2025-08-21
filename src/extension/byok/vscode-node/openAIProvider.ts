@@ -2,6 +2,7 @@
  *  Copyright (c) Microsoft Corporation. All rights reserved.
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
+import { ConfigKey, IConfigurationService } from '../../../platform/configuration/common/configurationService';
 import { ILogService } from '../../../platform/log/common/logService';
 import { IFetcherService } from '../../../platform/networking/common/fetcherService';
 import { IInstantiationService } from '../../../util/vs/platform/instantiation/common/instantiation';
@@ -18,11 +19,13 @@ export class OAIBYOKLMProvider extends BaseOpenAICompatibleLMProvider {
 		@IFetcherService _fetcherService: IFetcherService,
 		@ILogService _logService: ILogService,
 		@IInstantiationService _instantiationService: IInstantiationService,
+		@IConfigurationService _configurationService: IConfigurationService,
 	) {
+		const openaiEndpoint = _configurationService.getConfig(ConfigKey.OpenAiEndpoint);
 		super(
 			BYOKAuthType.GlobalApiKey,
 			OAIBYOKLMProvider.providerName,
-			'https://api.openai.com/v1',
+			openaiEndpoint,
 			knownModels,
 			byokStorageService,
 			_fetcherService,

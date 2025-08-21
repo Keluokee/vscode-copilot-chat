@@ -771,6 +771,9 @@ export namespace ConfigKey {
 	export const CurrentEditorAgentContext = defineSetting<boolean>('chat.agent.currentEditorContext.enabled', true);
 	/** BYOK  */
 	export const OllamaEndpoint = defineSetting<string>('chat.byok.ollamaEndpoint', 'http://localhost:11434');
+	export const OpenAiEndpoint = defineSetting<string>('chat.byok.openaiEndpoint', 'https://api.openai.com/v1');
+	export const GroqEndpoint = defineSetting<string>('chat.byok.groqEndpoint', 'https://api.groq.com/openai/v1');
+	export const KnownModels = defineSetting<Object>('chat.byok.knownModels', {});
 	export const AzureModels = defineSetting<Record<string, { name: string; url: string; toolCalling: boolean; vision: boolean; maxInputTokens: number; maxOutputTokens: number; thinking?: boolean }>>('chat.azureModels', {});
 	export const EditsCodeNewNotebookAgentEnabled = defineExpSetting<boolean>('chat.edits.newNotebook.enabled', true);
 	export const AutoFixDiagnostics = defineSetting<boolean>('chat.agent.autoFix', true);

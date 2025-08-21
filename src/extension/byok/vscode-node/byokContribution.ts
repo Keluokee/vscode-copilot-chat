@@ -76,8 +76,14 @@ export class BYOKContrib extends Disposable implements IExtensionContribution {
 			knownModels = {};
 		} else {
 			knownModels = data.modelInfo;
+			// 替换模型列表
+			const configModels: any = this._configurationService.getConfig(ConfigKey.KnownModels);
+			this._logService.info(`BYOK: Copilot Chat config models list. ${JSON.stringify(configModels)}`);
+			Object.keys(configModels).forEach((key) => {
+				knownModels[key] = configModels[key];
+			});
 		}
-		this._logService.info('BYOK: Copilot Chat known models list fetched successfully.');
+		this._logService.info(`BYOK: Copilot Chat known models list fetched successfully. ${JSON.stringify(knownModels)}`);
 		return knownModels;
 	}
 }
